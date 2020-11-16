@@ -1,7 +1,4 @@
 class EmployeePayrollData {
-    // property
-    gender;
-
     // constructor
     constructor(...params) {
         this.id = params[0];
@@ -16,7 +13,9 @@ class EmployeePayrollData {
         return this._id;
     }
     set id(id) {
-        this._id = id;
+        if(id > 0)
+            this._id = id;
+        else throw "Id is not valid";
     }
     
     get name() {
@@ -33,7 +32,18 @@ class EmployeePayrollData {
         return this._salary;
     }
     set salary(salary) {
-        this._salary = salary;
+        if(salary > 0)
+            this._salary = salary;
+        else throw "Salary is not valid";
+    }
+
+    get gender() {
+        return this._gender;
+    }
+    set gender(gender) {
+        if(gender === undefined || gender == "M" || gender == "F")
+            this._gender = gender;
+        else throw "Gender is not valid";
     }
 
     // method 
@@ -46,7 +56,15 @@ class EmployeePayrollData {
 
 let employeePayrollData = new EmployeePayrollData(1, "Neha", 5000);
 console.log(employeePayrollData.toString());
-employeePayrollData.id = 0;
+// for invalid id
+try {
+    employeePayrollData.id = 0;
+    console.log(employeePayrollData.toString()); 
+}
+catch(e) {
+    console.error(e);
+}
+// for invalid name
 try {
     employeePayrollData.name = "jeffy";
     console.log(employeePayrollData.toString()); 
@@ -55,5 +73,14 @@ catch(e) {
     console.error(e);
 }
 
-let employeePayrollData2 = new EmployeePayrollData(1, "Tressa" , 3000, "F", new Date());
+let employeePayrollData2 = new EmployeePayrollData(2, "Tressa" , 3000, "F", new Date());
 console.log(employeePayrollData2.toString());
+
+// for invalid gender
+try {
+    let employeePayrollData3 = new EmployeePayrollData(3, "John" , 7000, "Male", new Date());
+    console.log(employeePayrollData3.toString()); 
+}
+catch(e) {
+    console.error(e);
+}
